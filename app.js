@@ -15,10 +15,9 @@ var express     = require("express"),
 var commentRoutes    = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
     indexRoutes      = require("./routes/index")
-    
-mongoose.connect(process.env.DATABASEURL);
-//var url = process.env.DATABASEURL || "mongodb://localhost/camp_stamp_deploy";
-//mongoose.connect("mongodb://mottola:devlion8@ds017672.mlab.com:17672/campstamp");
+
+var url = process.env.DATABASEURL || "mongodb://localhost/camp_stamp_deploy"   
+mongoose.connect(url); 
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -34,6 +33,7 @@ app.use(require("express-session")({
     resave: false,
     saveUninitialized: false
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
